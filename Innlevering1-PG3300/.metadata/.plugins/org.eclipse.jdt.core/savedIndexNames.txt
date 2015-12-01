@@ -1,0 +1,5 @@
+INDEX VERSION 1.127+D:\Stuff\Skola\Java-PG3300\Innlevering1-PG3300\.metadata\.plugins\org.eclipse.jdt.core
+15387521.index
+1864072317.index
+4123556693.index
+2954932109.index
