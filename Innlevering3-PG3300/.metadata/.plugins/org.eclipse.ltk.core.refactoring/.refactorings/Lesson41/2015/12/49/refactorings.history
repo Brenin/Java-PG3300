@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;helloservlet&apos; to &apos;helloservlets&apos;&#x0D;&#x0A;- Original project: &apos;Lesson41&apos;&#x0D;&#x0A;- Original element: &apos;Lesson41/src/helloservlet&apos;&#x0D;&#x0A;- Renamed element: &apos;Lesson41/src/helloservlets&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;helloservlet&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;helloservlet" name="helloservlets" qualified="false" references="true" stamp="1449006370553" textual="false" version="1.0"/>
+</session>

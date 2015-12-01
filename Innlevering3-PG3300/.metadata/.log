@@ -123,3 +123,6 @@ Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find
 
 !ENTRY org.eclipse.wst.server.core 4 0 2015-12-01 21:58:41.226
 !MESSAGE Server Tomcat v7.0 Server at localhost failed to start.
+
+!ENTRY org.eclipse.wst.server.core 4 0 2015-12-01 22:22:56.633
+!MESSAGE Server Tomcat v7.0 Server at localhost failed to start.

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form method="post" action="http//localhost:8080/Lesson41">
+
+What's your name?<br />
+<input name="yourname" /><br />
+
+First Number
+<input name="firstnum" /><br />
+
+Second Number
+<input name="secondnum" /><br />
+
+<input type="hidden" name="Language" value="English" /><br />
+
+<input type="submit" />
+
+</form>
+
+</body>
+</html>
