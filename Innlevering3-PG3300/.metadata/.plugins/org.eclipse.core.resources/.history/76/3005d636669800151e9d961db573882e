@@ -1,0 +1,5 @@
+package helloservlets;
+
+public @interface WebServlet {
+
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form method="post" action="http://localhost:8080/servlets/HelloWorld/">
+
+What's your name?<br />
+<input name="youname" /><br />
+
+First Number
+<input name="firstnum" /><br />
+
+Second Number
+<input name="secondnum" /><br />
+
+<input type="hidden" name="Language" value="English" /><br />
+
+<input type="submit" />
+
+</form>
+
+</body>
+</html>
