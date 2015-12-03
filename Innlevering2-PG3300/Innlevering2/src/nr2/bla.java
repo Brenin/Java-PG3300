@@ -1,3 +1,5 @@
+// Created by Eirikur Lundin
+
 package nr2;
 
 public class bla {

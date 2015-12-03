@@ -1,3 +1,6 @@
+// Created by Eirikur Lundin
+// Koden som ligger kommenterad i metoderna är det sättet jag helst ville gjort det på
+
 package nr2;
 
 import java.sql.*;
@@ -6,11 +9,10 @@ import db.ConnectToDB;
 
 public class DBHandlerBokliste {
 
-	private String databaseName;
-	private String serverName;
 	private ConnectToDB db;
 	private Connection con;
 	private String tableName = "bokliste";
+	private String format = "%-20s%-20s%-20s";
 	private PreparedStatement pstmtUpdateTittel;
 	private PreparedStatement pstmtUpdateForfatter;
 	private PreparedStatement pstmtDeleteForfatter;
@@ -20,225 +22,152 @@ public class DBHandlerBokliste {
 	private PreparedStatement pstmtGetRow;
 
 	public DBHandlerBokliste(String user, String password) throws SQLException {
-
-		db.setServerName(serverName);
-		db.setDatabaseName(databaseName);
-		
 		db = new ConnectToDB(user, password);
 		con = db.getConnection();
+
+		// Prepare Statements
+		pstmtUpdateTittel 		= con.prepareStatement("UPDATE " + tableName + " SET TITTEL = ? WHERE TITTEL = ?");
+		pstmtUpdateForfatter 	= con.prepareStatement("UPDATE " + tableName + " SET FORFATTER = ? WHERE FORFATTER = ?");
+		pstmtDeleteForfatter 	= con.prepareStatement("DELETE FROM " + tableName + " WHERE FORFATTER = ?");
+		pstmtDeleteTittel 		= con.prepareStatement("DELETE FROM " + tableName + " WHERE TITTEL = ?");
+		pstmtInsertRow 			= con.prepareStatement("INSERT INTO " + tableName + " VALUES (?, ?, ?)");
+		pstmtGetTable 			= con.prepareStatement("SELECT * FROM " + tableName);
+		pstmtGetRow 			= con.prepareStatement("SELECT * FROM " + tableName + " WHERE FORFATTER = ? AND TITTEL = ?");
 	}
 
-	public String getDatabaseName() {
-		return databaseName;
+	public void close() throws SQLException {
+		db.close();
+		con.close();
+		pstmtUpdateTittel.close();
+		pstmtUpdateForfatter.close();
+		pstmtDeleteForfatter.close();
+		pstmtDeleteTittel.close();
+		pstmtInsertRow.close();
+		pstmtGetTable.close();
+		pstmtGetRow.close();
 	}
 
-	@SuppressWarnings("unused")
-	private void setDatabaseName(String databaseName) {
-		this.databaseName = databaseName;
-	}
+	public int updateTittel(String tittel, String nyTittel) throws SQLException {
 
-	public String getServerName() {
-		return serverName;
-	}
+		// Prepares Statement
+		// String sql = "UPDATE " + tableName + " SET TITTEL = ? WHERE TITTEL = ?";
+		// pstmtUpdateTittel = con.prepareStatement(sql);
 
-	@SuppressWarnings("unused")
-	private void setServerName(String serverName) {
-		this.serverName = serverName;
-	}
+		// Binds values to parameters
+		pstmtUpdateTittel.setString(1, nyTittel);
+		pstmtUpdateTittel.setString(2, tittel);
 
-	public int updateTittel(String nyTittel, String tittel) throws SQLException {
-
-		String updateTittel = "UPDATE ? SET TITTEL = ? WHERE TITTEL = ?";
-		con = null;
-		pstmtUpdateTittel = null;
-		int rowsAffected;
-
-		try {
-			con = db.getConnection();
-			pstmtUpdateTittel = con.prepareStatement(updateTittel);
-			pstmtUpdateTittel.setString(1, tableName);
-			pstmtUpdateTittel.setString(2, nyTittel);
-			pstmtUpdateTittel.setString(3, tittel);
-
-			rowsAffected = pstmtUpdateTittel.executeUpdate();
-		} finally {
-			try {
-				pstmtUpdateTittel.close();
-			} catch (Exception e) {
-				/* ignored */ }
-			try {
-				con.close();
-			} catch (Exception e) {
-				/* ignored */ }
-		}
+		// Execute SQL
+		int rowsAffected = pstmtUpdateTittel.executeUpdate();
+		// pstmtUpdateTittel.close();
 		return rowsAffected;
 	}
 
-	public int updateForfatter(String nyForfatter, String forfatter) throws SQLException {
+	public int updateForfatter(String forfatter, String nyForfatter) throws SQLException {
 
-		String updateForfatter = "UPDATE ? SET FORFATTER = ? WHERE FORFATTER = ?";
-		con = null;
-		pstmtUpdateForfatter = null;
-		int rowsAffected;
+		// Prepares Statement
+		// String sql = "UPDATE " + tableName + " SET FORFATTER = ? WHERE FORFATTER = ?";
+		// pstmtUpdateForfatter = con.prepareStatement(sql);
 
-		try {
-			con = db.getConnection();
-			pstmtUpdateForfatter = con.prepareStatement(updateForfatter);
-			pstmtUpdateForfatter.setString(1, tableName);
-			pstmtUpdateForfatter.setString(2, nyForfatter);
-			pstmtUpdateForfatter.setString(3, forfatter);
+		// Binds values to parameters
+		pstmtUpdateForfatter.setString(1, nyForfatter);
+		pstmtUpdateForfatter.setString(2, forfatter);
 
-			rowsAffected = pstmtUpdateForfatter.executeUpdate();
-		} finally {
-			try {
-				pstmtUpdateForfatter.close();
-			} catch (Exception e) {
-				/* ignored */ }
-			try {
-				con.close();
-			} catch (Exception e) {
-				/* ignored */ }
-		}
+		// Execute SQL
+		int rowsAffected = pstmtUpdateForfatter.executeUpdate();
+		// pstmtUpdateForfatter.close();
 		return rowsAffected;
 	}
 
 	public int deleteForfatter(String forfatter) throws SQLException {
 
-		String deleteForfatter = "DELETE FROM ? WHERE FORFATTER = ?";
-		con = null;
-		pstmtDeleteForfatter = null;
-		int rowsAffected;
+		// Prepares Statement
+		// String sql = "DELETE FROM " + tableName + " WHERE FORFATTER = ?";
+		// pstmtDeleteForfatter = con.prepareStatement(sql);
 
-		try {
-			con = db.getConnection();
-			pstmtDeleteForfatter = con.prepareStatement(deleteForfatter);
-			pstmtDeleteForfatter.setString(1, tableName);
-			pstmtDeleteForfatter.setString(2, forfatter);
+		// Binds values to parameters
+		pstmtDeleteForfatter.setString(1, forfatter);
 
-			rowsAffected = pstmtDeleteForfatter.executeUpdate();
-		} finally {
-			try {
-				pstmtDeleteForfatter.close();
-			} catch (Exception e) {
-				/* ignored */ }
-			try {
-				con.close();
-			} catch (Exception e) {
-				/* ignored */ }
-		}
+		// Execute SQL
+		int rowsAffected = pstmtDeleteForfatter.executeUpdate();
+		// pstmtDeleteForfatter.close();
 		return rowsAffected;
 	}
 
 	public int deleteTittel(String tittel) throws SQLException {
 
-		String deleteTittel = "DELETE FROM ? WHERE TITTEL = ?";
-		con = null;
-		pstmtDeleteTittel = null;
-		int rowsAffected;
+		// Prepares Statement
+		// String sql = "DELETE FROM " + tableName + " WHERE TITTEL = ?";
+		// pstmtDeleteTittel = con.prepareStatement(sql);
 
-		try {
-			con = db.getConnection();
-			pstmtDeleteTittel = con.prepareStatement(deleteTittel);
-			pstmtDeleteTittel.setString(1, tableName);
-			pstmtDeleteTittel.setString(2, tittel);
+		// Binds values to parameters
+		pstmtDeleteTittel.setString(1, tittel);
 
-			rowsAffected = pstmtDeleteTittel.executeUpdate();
-		} finally {
-			try {
-				pstmtDeleteTittel.close();
-			} catch (Exception e) {
-				/* ignored */ }
-			try {
-				con.close();
-			} catch (Exception e) {
-				/* ignored */ }
-		}
+		// Execute SQL
+		int rowsAffected = pstmtDeleteTittel.executeUpdate();
+		// pstmtDeleteTittel.close();
 		return rowsAffected;
 	}
 
 	public int insertRow(String isbn, String forfatter, String tittel) throws SQLException {
 
-		String insertRow = "INSERT INTO ? VALUES (?, ?, ?)";
-		con = null;
-		pstmtInsertRow = null;
-		int rowsAffected;
+		// Prepares Statement
+		// String sql = "INSERT INTO " + tableName + " VALUES (?, ?, ?)";
+		// pstmtInsertRow = con.prepareStatement(sql);
 
-		try {
-			con = db.getConnection();
-			pstmtInsertRow = con.prepareStatement(insertRow);
-			pstmtInsertRow.setString(1, tableName);
-			pstmtInsertRow.setString(2, isbn);
-			pstmtInsertRow.setString(3, forfatter);
-			pstmtInsertRow.setString(4, tittel);
+		// Binds values to parameters
+		pstmtInsertRow.setString(1, isbn);
+		pstmtInsertRow.setString(2, forfatter);
+		pstmtInsertRow.setString(3, tittel);
 
-			rowsAffected = pstmtInsertRow.executeUpdate();
-		} finally {
-			try {
-				pstmtInsertRow.close();
-			} catch (Exception e) {
-				/* ignored */ }
-			try {
-				con.close();
-			} catch (Exception e) {
-				/* ignored */ }
-		}
+		// Execute SQL
+		int rowsAffected = pstmtInsertRow.executeUpdate();
+		// pstmtInsertRow.close();
 		return rowsAffected;
 	}
 
-	public ArrayList<String[]> getTable() throws SQLException {
+	public ArrayList<String> getTable() throws SQLException {
 
-		ArrayList<String[]> al = new ArrayList<String[]>();
+		// Prepares Statement
+		// String sql = "SELECT * FROM " + tableName;
+		// pstmtGetTable = con.prepareStatement(sql);
 
-		String getTable = "SELECT * FROM ?";
-		pstmtGetTable.setString(1, tableName);
+		// Execute SQL
+		ResultSet rs = pstmtGetTable.executeQuery();
 
-		ResultSet rs = pstmtGetTable.executeQuery(getTable);
+		ArrayList<String> array = new ArrayList<String>();
+		if (rs != null) {
+			array.add(String.format(format, "ISBN", "Författare", "Titel"));
 
-		int antall = rs.getMetaData().getColumnCount();
-
-		while (rs.next()) {
-			String[] row = new String[antall];
-			for (int i = 0; i < antall; i++) {
-				row[i] = rs.getString(i + 1);
+			while (rs.next()) {
+				array.add(String.format(format, rs.getString(2), rs.getString(3), rs.getString(4)));
 			}
-			al.add(row);
 		}
-
-		try {
-			pstmtGetTable.close();
-		} catch (Exception e) {
-			/* ignored */ }
-		try {
-			con.close();
-		} catch (Exception e) {
-			/* ignored */ }
-
-		return al;
+		// pstmtGetTable.close();
+		return array;
 	}
 
 	public String getRow(String forfatter, String tittel) throws SQLException {
 
-		String getRow = "SELECT * FROM ? WHERE FORFATTER = ? AND TITTEL = ?";
-		pstmtGetRow.setString(1, tableName);
-		pstmtGetRow.setString(2, forfatter);
-		pstmtGetRow.setString(3, tittel);
+		// Prepares Statement
+		// String sql = "SELECT * FROM " + tableName + " WHERE FORFATTER = ? AND TITTEL = ?";
+		// pstmtGetRow = con.prepareStatement(sql);
 
-		ResultSet rs = pstmtGetRow.executeQuery(getRow);
+		// Binds values to parameters
+		pstmtGetRow.setString(1, forfatter);
+		pstmtGetRow.setString(2, tittel);
 
-		try {
-			rs.close();
-		} catch (Exception e) {
-			/* ignored */ }
-		try {
-			pstmtGetRow.close();
-		} catch (Exception e) {
-			/* ignored */ }
-		try {
-			con.close();
-		} catch (Exception e) {
-			/* ignored */ }
+		// Execute SQL
+		ResultSet rs = pstmtGetRow.executeQuery();
 
-		return rs.getString(1) + ", " + rs.getString(2) + ", " + rs.getString(3);
+		rs.first();
+
+		String row = "";
+		if (rs != null) {
+			row = String.format(format, rs.getString(2), rs.getString(3), rs.getString(4));
+		}
+		// pstmtGetRow.close();
+		return row;
 	}
 
 }
