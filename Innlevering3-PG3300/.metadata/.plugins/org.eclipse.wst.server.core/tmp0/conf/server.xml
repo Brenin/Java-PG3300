@@ -126,7 +126,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log." suffix=".txt"/>
 
-      <Context docBase="D:\Stuff\Skola\Java-PG3300\Innlevering3-PG3300\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="D:\Stuff\Skola\Java-PG3300\Innlevering3-PG3300\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Lesson41" path="/Lesson41" reloadable="true" source="org.eclipse.jst.jee.server:Lesson41"/></Host>
+      <Context docBase="D:\Stuff\Skola\Java-PG3300\Innlevering3-PG3300\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="D:\Stuff\Skola\Java-PG3300\Innlevering3-PG3300\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Lesson41" path="/Lesson41" reloadable="true" source="org.eclipse.jst.jee.server:Lesson41"/><Context docBase="D:\Stuff\Skola\Java-PG3300\Innlevering3-PG3300\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\MusikVelger" path="/MusikVelger" reloadable="true" source="org.eclipse.jst.jee.server:MusikVelger"/></Host>
     </Engine>
   </Service>
 </Server>
