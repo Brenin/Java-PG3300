@@ -12,7 +12,7 @@ public class RationalNumberTest {
 	}
 
 	@Test
-	public void rationalNumber_testEmptyConstructor() {
+	public void rationalNumber_EmptyConstructor_ReturnDefault() {
 		
 		RationalNumber rn = new RationalNumber();
 		
@@ -21,7 +21,7 @@ public class RationalNumberTest {
 	}
 
 	@Test
-	public void RationalNumber_testConstructorWithPositiveNumbers() {
+	public void RationalNumber_ConstructorWithPositiveNumbers_ReturnInput() {
 
 		RationalNumber rn = new RationalNumber(1, 2);
 
@@ -29,7 +29,7 @@ public class RationalNumberTest {
 	}
 	
 	@Test
-	public void RationalNumber_testConstructorWithNegativeNumbers() {
+	public void RationalNumber_ConstructorWithNegativeNumbers_ConvertToPositive() {
 
 		RationalNumber rn = new RationalNumber(-1, -2);
 
@@ -37,7 +37,7 @@ public class RationalNumberTest {
 	}
 	
 	@Test
-	public void RationalNumber_testConstructorWithNegativeDenominator() {
+	public void RationalNumber_ConstructorWithNegativeDenominator_PrefixChangingPlace() {
 
 		RationalNumber rn = new RationalNumber(1, -2);
 
@@ -45,7 +45,7 @@ public class RationalNumberTest {
 	}
 	
 	@Test
-	public void RationalNumber_testConstructorWithNegativeNominator() {
+	public void RationalNumber_ConstructorWithNegativeNominator_PrefixStaying() {
 
 		RationalNumber rn = new RationalNumber(-1, 2);
 
@@ -53,14 +53,14 @@ public class RationalNumberTest {
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
-	public void RationalNumber_testConstructorWithInValidNumbers() {
+	public void RationalNumber_testConstructorWithInValidNumbers_ExceptionThrown() {
 
 		@SuppressWarnings("unused")
 		RationalNumber rn = new RationalNumber(3, 0);
 	}
 
 	@Test
-	public void toString_testExpectedOutput() {
+	public void toString_ExpectedOutputAndConvertion() {
 
 		RationalNumber rn = new RationalNumber(1, 2);
 		RationalNumber rn2 = new RationalNumber(2, 1);
@@ -70,7 +70,7 @@ public class RationalNumberTest {
 	}
 	
 	@Test
-	public void getNumerator_testExpectedGet() {
+	public void getNumerator_ExpectedGet_ReturnNumerator() {
 
 		RationalNumber rn = new RationalNumber(1, 2);
 		
@@ -78,7 +78,7 @@ public class RationalNumberTest {
 	}
 	
 	@Test
-	public void getDenominator_testExpectedGet() {
+	public void getDenominator_ExpectedGet_ReturnDenominator() {
 
 		RationalNumber rn = new RationalNumber(1, 2);
 		
@@ -86,33 +86,30 @@ public class RationalNumberTest {
 	}
 	
 	@Test
-	public void Equals_testWithDifferentObjects() {
+	public void Equals_DifferentButSimilarObjects() {
 
 		RationalNumber rn1 = new RationalNumber(3, 8);
 		RationalNumber rn2 = new RationalNumber(3, 8);
+		
+		RationalNumber rn3 = new RationalNumber(0, 4);
+		RationalNumber rn4 = new RationalNumber(0, 2);
 		
 		assertNotSame(rn1, rn2);
-	}
-	
-	@Test
-	public void Equals_testWithTheSameObject() {
-		
-		RationalNumber rn1 = new RationalNumber(3, 8);
-		
-		assertSame(rn1, rn1);
-	}
-	
-	@Test
-	public void Equals_testWithSimilarObjects() {
-
-		RationalNumber rn1 = new RationalNumber(3, 8);
-		RationalNumber rn2 = new RationalNumber(3, 8);
-		
 		assertEquals(rn1, rn2);
+		assertNotSame(rn3, rn4);
+	}
+	
+	@Test
+	public void Equals_TheSameObject_True() {
+		
+		RationalNumber rn1 = new RationalNumber(3, 8);
+
+		assertSame(rn1, rn1);
+
 	}
 
 	@Test
-	public void Add_testWithFractions() {
+	public void Add_FractionsWithPositiveNumbers() {
 
 		RationalNumber rn1 = new RationalNumber(1, 2);
 		RationalNumber rn2 = new RationalNumber(1, 2);
@@ -123,7 +120,7 @@ public class RationalNumberTest {
 	}
 	
 	@Test
-	public void Add_testWithWholeNumbers() {
+	public void Add_WithWholeNumbers() {
 
 		RationalNumber rn1 = new RationalNumber(2, 2);
 		RationalNumber rn2 = new RationalNumber(2, 2);
@@ -134,7 +131,7 @@ public class RationalNumberTest {
 	}
 
 	@Test
-	public void Subtract_testWithFractions() {
+	public void Subtract_WithFractions() {
 
 		RationalNumber rn1 = new RationalNumber(1, 2);
 		RationalNumber rn2 = new RationalNumber(1, 2);
@@ -145,7 +142,7 @@ public class RationalNumberTest {
 	}
 	
 	@Test
-	public void Subtract_testWithWholeNumbers() {
+	public void Subtract_WithWholeNumbers() {
 
 		RationalNumber rn1 = new RationalNumber(2, 2);
 		RationalNumber rn2 = new RationalNumber(2, 2);
@@ -156,7 +153,7 @@ public class RationalNumberTest {
 	}
 
 	@Test
-	public void Multiply_testWithFractions() {
+	public void Multiply_WithFractions() {
 
 		RationalNumber rn1 = new RationalNumber(1, 2);
 		RationalNumber rn2 = new RationalNumber(1, 2);
@@ -167,7 +164,7 @@ public class RationalNumberTest {
 	}
 	
 	@Test
-	public void Multiply_testWithWholeNumbers() {
+	public void Multiply_WithWholeNumbers() {
 
 		RationalNumber rn1 = new RationalNumber(2, 2);
 		RationalNumber rn2 = new RationalNumber(2, 2);
@@ -178,7 +175,7 @@ public class RationalNumberTest {
 	}
 
 	@Test
-	public void Divide_testWithFractions() {
+	public void Divide_WithFractions() {
 
 		RationalNumber rn1 = new RationalNumber(1, 2);
 		RationalNumber rn2 = new RationalNumber(1, 2);
@@ -189,7 +186,7 @@ public class RationalNumberTest {
 	}
 	
 	@Test
-	public void Divide_testWithWholeNumbers() {
+	public void Divide_WithWholeNumbers() {
 
 		RationalNumber rn1 = new RationalNumber(6, 2);
 		RationalNumber rn2 = new RationalNumber(6, 2);
@@ -200,7 +197,7 @@ public class RationalNumberTest {
 	}
 
 	@Test
-	public void Reduce_test() {
+	public void Reduce_ShouldFindSmallestCommonNumber() {
 		
 		RationalNumber rn1 = new RationalNumber(4, 8);
 		
@@ -210,7 +207,7 @@ public class RationalNumberTest {
 	}
 	
 	@Test
-	public void GCD_testOfReturn() {
+	public void GCD_ReturnOuput() {
 		
 		RationalNumber rn1 = new RationalNumber(5, 10);
 		
